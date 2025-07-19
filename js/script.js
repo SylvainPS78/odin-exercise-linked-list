@@ -130,6 +130,32 @@ class LinkedList {
     return resultString;
   }
 
+  insertAt(value, index) {
+    if (index < 0 || index > this.size) {
+      console.log("index invalid : out of scope");
+      return false;
+    }
+
+    if (index === 0) {
+      this.prepend(value);
+      return true;
+    }
+
+    if (index === this.size) {
+      this.append(value);
+      return true;
+    }
+
+    const newNode = new Node(value);
+    const previousNode = this.at(index - 1);
+
+    newNode.nextNode = previousNode.nextNode;
+    previousNode.nextNode = newNode;
+    this.size++;
+
+    return true;
+  }
+
   removeAt(index) {
     if (index < 0 || index >= this.size) {
       console.log("index invalid : out of scope");
@@ -174,6 +200,6 @@ list.prepend("bird");
 
 console.log(list.toString());
 
-console.log(`Suppression réussie: ${list.removeAt(8)}`);
+console.log(`Insert success : ${list.insertAt("fish", 9)}`);
 
 console.log(list.toString());
