@@ -129,6 +129,36 @@ class LinkedList {
 
     return resultString;
   }
+
+  removeAt(index) {
+    if (index < 0 || index >= this.size) {
+      console.log("index invalid : out of scope");
+      return false;
+    }
+
+    if (this.head === null) {
+      console.error("La liste est vide, rien à supprimer.");
+      return false;
+    }
+
+    if (index === 0) {
+      this.head = this.head.nextNode;
+      if (this.head === null) {
+        this.tail = null;
+      }
+      this.size--;
+      return true;
+    }
+
+    if (index === this.size - 1) {
+      this.pop();
+      return true;
+    }
+
+    this.at(index - 1).nextNode = this.at(index + 1);
+    this.size--;
+    return true;
+  }
 }
 
 const list = new LinkedList();
@@ -139,16 +169,11 @@ list.append("parrot");
 list.append("hamster");
 list.append("snake");
 list.append("turtle");
-
-console.log(list.toString());
-
 list.append("tiger");
-
-console.log(list.toString());
-console.log(list.contains("bird"));
-
 list.prepend("bird");
 
 console.log(list.toString());
-console.log(list.contains("bird"));
-console.log(list.find("crocodile"));
+
+console.log(`Suppression réussie: ${list.removeAt(8)}`);
+
+console.log(list.toString());
